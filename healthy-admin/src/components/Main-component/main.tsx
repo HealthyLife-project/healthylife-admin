@@ -1,0 +1,22 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { HashCate } from "./hash";
+import { AdminMenu } from "./menu";
+import { MainWrap } from "./mainstyled";
+import { Main } from "next/document";
+import { IpLog } from "./iplog";
+
+export const Admin = () => {
+  const [selectMenu, setSelectMenu] = useState<string>("category");
+
+  const clickMenu = (menu: string) => {
+    setSelectMenu(menu);
+  };
+  return (
+    <MainWrap>
+      <AdminMenu MenuClick={clickMenu} />
+      {selectMenu === "category" && <HashCate />}
+      {selectMenu === "ipLog" && <IpLog />}
+    </MainWrap>
+  );
+};
