@@ -7,6 +7,11 @@ interface CateOption {
   category: string;
 }
 
+interface CateHash {
+  id: number;
+  hash: string;
+  category: {};
+}
 const onCategory = async (
   category: string,
   setCategory: React.Dispatch<React.SetStateAction<string>>
@@ -17,11 +22,11 @@ const onCategory = async (
   }
 
   try {
-    const response = await axios.post("http://localhost:5000/hashtag/onCate", {
+    const res = await axios.post("http://localhost:5001/hashtag/onCate", {
       category,
     });
 
-    console.log("카테고리 추가 성공:", response.data);
+    console.log("카테고리 추가 성공:", res.data);
 
     setCategory("");
   } catch (error) {
@@ -40,12 +45,12 @@ const onHashtag = async (
   }
 
   try {
-    const response = await axios.post("http://localhost:5000/hashtag/onHash", {
+    const res = await axios.post("http://localhost:5001/hashtag/onHash", {
       hashtag,
       categoryId,
     });
 
-    console.log("해쉬태그 추가 성공:", response.data);
+    console.log("해쉬태그 추가 성공:", res.data);
 
     setCategory("");
   } catch (error) {
@@ -58,26 +63,52 @@ export const HashCate = () => {
   const [hashtag, setHashtag] = useState(""); //hashtag input창
   const [options, setOptions] = useState<CateOption[]>([]); //options select 밸류
   const [cateid, setSelect] = useState<number>(1);
-
+  const [cHash, setChash] = useState<CateHash[]>([]);
   useEffect(() => {
     const cate = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/hashtag/AllCate");
+        const res = await axios.get("http://localhost:5001/hashtag/AllCate");
         setOptions(res.data);
-        console.log(options);
       } catch (error) {
         console.error("카테고리 불러오기 실패:", error);
       }
     };
 
     cate(); // 함수 호출
-    console.log(options);
   }, []);
 
   function onSelect(v: number) {
     setSelect(v);
-    console.log(v);
   }
+
+  //category에 따른 hashtag 출력하기 위한 버튼
+  async function cateBtn(id: Number) {
+    try {
+      const res = await axios.get(`http://localhost:5001/hashtag/hash/${id}`);
+
+      setChash(res.data);
+      return res.data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function delHash(id: Number) {
+    try {
+      const res = await axios.delete(
+        `http://localhost:5001/hashtag/delHash/${id}`
+      );
+      if (res) {
+        alert("삭제 성공");
+        setChash(cHash.filter((item) => item.id !== id));
+      } else {
+        alert("삭제 실패");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <div>
       <h3>기본 환경 설정</h3>
@@ -124,6 +155,35 @@ export const HashCate = () => {
           추가
         </button>
       </div>
+      <div>
+        {options.map((item) => {
+          return (
+            <button
+              onClick={() => {
+                cateBtn(item.id);
+              }}
+            >
+              {item.category}
+            </button>
+          );
+        })}
+      </div>
+      <ul>
+        {cHash.map((item) => {
+          return (
+            <li>
+              {item.hash}{" "}
+              <button
+                onClick={() => {
+                  delHash(item.id);
+                }}
+              >
+                제거
+              </button>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 };
