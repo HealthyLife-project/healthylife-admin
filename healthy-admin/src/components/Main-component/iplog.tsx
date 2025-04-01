@@ -33,15 +33,15 @@ export const IpLog = () => {
             {" "}
             {log.map((item, index) => (
               <tr key={index}>
-                <td>
+                <Td>
                   {item.ipAddress === "::1"
                     ? "127.0.0.1"
                     : item.ipAddress.includes("127.0.0.1")
                     ? "127.0.0.1"
                     : item.ipAddress}
-                </td>
-                <td>{item.url}</td>
-                <td>{item.timestamp}</td>
+                </Td>
+                <Td>{item.url}</Td>
+                <Td>{item.timestamp}</Td>
               </tr>
             ))}
           </tbody>

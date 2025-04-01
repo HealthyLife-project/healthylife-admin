@@ -7,6 +7,8 @@ import { Main } from "next/document";
 import { IpLog } from "./iplog";
 import { Chat } from "./test";
 import { GoogleLogin } from "./login";
+import { Report } from "./report";
+
 export const Admin = () => {
   const [selectMenu, setSelectMenu] = useState<string>("category");
 
@@ -20,6 +22,7 @@ export const Admin = () => {
       {selectMenu === "iplog" && <IpLog />}
       {selectMenu === "chat" && <Chat />}
       {selectMenu === "login" && <GoogleLogin />}
+      {selectMenu === "report" && <Report />}
     </MainWrap>
   );
 };

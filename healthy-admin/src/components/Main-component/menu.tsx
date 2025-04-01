@@ -15,6 +15,7 @@ export const AdminMenu: React.FC<AdminMenuProps> = ({ MenuClick }) => {
           <MenuItem onClick={() => MenuClick("iplog")}>ip 로그</MenuItem>
           <MenuItem onClick={() => MenuClick("chat")}>chat</MenuItem>
           <MenuItem onClick={() => MenuClick("login")}>login</MenuItem>
+          <MenuItem onClick={() => MenuClick("report")}>report</MenuItem>
         </MenuList>
       </MainMenu>
     </MainWrap>

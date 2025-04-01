@@ -12,9 +12,10 @@ const AuthSuccess = () => {
     if (signup === "false") {
       // 회원가입이 아니라면 userid만 처리
       console.log("회원가입이 아니므로 userid:", userid);
+      router.push("/");
     } else if (signup === "true" && token) {
-      // 회원가입이면서 토큰이 있다면 JWT 토큰 처리
       console.log("회원가입이고, 토큰:", token);
+      router.push("/");
     }
   }, [signup, userid, token]);
 

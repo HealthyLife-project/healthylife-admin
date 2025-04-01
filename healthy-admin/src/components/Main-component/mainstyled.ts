@@ -7,8 +7,8 @@ export const MainWrap = styled.div`
 
 export const MainMenu = styled.div`
   min-height: 100vh;
-  background-color: #2a2a2a;
-  color: white;
+  background-color: #d2e4f8;
+  color: black;
   font-size: 14px;
 
   white-space: nowrap;

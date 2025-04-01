@@ -24,54 +24,50 @@ interface CateHash {
   category: {};
 }
 
-const onCategory = async (
-  category: string,
-  setCategory: React.Dispatch<React.SetStateAction<string>>
-) => {
-  if (!category) {
-    alert("카테고리를 입력하세요");
-    return;
-  }
-
-  try {
-    const res = await axios.post("http://localhost:5001/hashtag/onCate", {
-      category,
-    });
-    console.log("카테고리 추가 성공:", res.data);
-    setCategory("");
-  } catch (error) {
-    console.error("카테고리 추가 실패:", error);
-  }
-};
-
-const onHashtag = async (
-  categoryId: number,
-  hashtag: string,
-  setHashtag: React.Dispatch<React.SetStateAction<string>>
-) => {
-  if (!hashtag) {
-    alert("해쉬태그를 입력하세요");
-    return;
-  }
-
-  try {
-    const res = await axios.post("http://localhost:5001/hashtag/onHash", {
-      hashtag,
-      categoryId,
-    });
-    console.log("해쉬태그 추가 성공:", res.data);
-    setHashtag("");
-  } catch (error) {
-    console.error("해쉬태그 추가 실패:", error);
-  }
-};
-
 export const HashCate = () => {
   const [category, setCategory] = useState(""); // category input
   const [hashtag, setHashtag] = useState(""); // hashtag input
   const [options, setOptions] = useState<CateOption[]>([]); // options select value
   const [cateid, setSelect] = useState<number>(1);
   const [cHash, setChash] = useState<CateHash[]>([]);
+
+  const onCategory = async () => {
+    if (!category) {
+      alert("카테고리를 입력하세요");
+      return;
+    }
+
+    try {
+      const res = await axios.post("http://localhost:5001/hashtag/onCate", {
+        category,
+      });
+      console.log("카테고리 추가 성공:", res.data);
+
+      // 새로운 카테고리 추가
+      setOptions((prev) => [...prev, res.data]);
+      setCategory("");
+    } catch (error) {
+      console.error("카테고리 추가 실패:", error);
+    }
+  };
+
+  const onHashtag = async () => {
+    if (!hashtag) {
+      alert("해쉬태그를 입력하세요");
+      return;
+    }
+
+    try {
+      const res = await axios.post("http://localhost:5001/hashtag/onHash", {
+        hashtag,
+        categoryId: cateid,
+      });
+      console.log("해쉬태그 추가 성공:", res.data);
+      setHashtag("");
+    } catch (error) {
+      console.error("해쉬태그 추가 실패:", error);
+    }
+  };
 
   useEffect(() => {
     const loadCategories = async () => {
@@ -89,17 +85,16 @@ export const HashCate = () => {
     setSelect(v);
   };
 
-  const cateBtn = async (id: Number) => {
+  const cateBtn = async (id: number) => {
     try {
       const res = await axios.get(`http://localhost:5001/hashtag/hash/${id}`);
       setChash(res.data);
-      return res.data;
     } catch (error) {
       console.error(error);
     }
   };
 
-  const delHash = async (id: Number) => {
+  const delHash = async (id: number) => {
     try {
       const res = await axios.delete(
         `http://localhost:5001/hashtag/delHash/${id}`
@@ -130,9 +125,7 @@ export const HashCate = () => {
             onChange={(e) => setCategory(e.target.value)}
             placeholder="카테고리 입력"
           />
-          <Button onClick={() => onCategory(category, setCategory)}>
-            추가
-          </Button>
+          <Button onClick={onCategory}>추가</Button>
         </Row>
       </FormContainer>
 
@@ -156,11 +149,7 @@ export const HashCate = () => {
             onChange={(e) => setHashtag(e.target.value)}
             placeholder="해시태그 입력"
           />
-          <Button
-            onClick={() => onHashtag(Number(cateid), hashtag, setHashtag)}
-          >
-            추가
-          </Button>
+          <Button onClick={onHashtag}>추가</Button>
         </Row>
       </FormContainer>
 
