@@ -11,7 +11,7 @@ import {
   TableRow,
   TableCell,
   DelButton,
-} from "./styled";
+} from "../Main-style/styled";
 
 interface CateOption {
   id: number;

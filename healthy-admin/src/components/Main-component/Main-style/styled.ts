@@ -68,3 +68,5 @@ export const DelButton = styled(Button)`
     background-color: #292929;
   }
 `;
+
+export const PayStyle = styled.div``;

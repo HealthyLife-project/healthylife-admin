@@ -1,4 +1,4 @@
-import { TableWrapper, Table, Th, Td } from "./mainstyled";
+import { TableWrapper, Table, Th, Td } from "../Main-style/mainstyled";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
