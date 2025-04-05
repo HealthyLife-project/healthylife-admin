@@ -1,33 +1,26 @@
-import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 import axios from "axios";
-
-const AuthSuccess = () => {
+const SocialLogin = () => {
   const router = useRouter();
-
-  // URL에서 쿼리 파라미터 값 가져오기
-  const { userid, token, signup } = router.query;
+  const { signup, token, provider } = router.query;
 
   useEffect(() => {
-    if (signup === "false") {
-      // 회원가입이 아니라면 userid만 처리
-      console.log("회원가입이 아니므로 userid:", userid);
-      alert("마이페이지로 이동");
+    //쿼리로 받기 때문에 Boolean이 아닌 string으로 전달됨
+    if (signup === "true" && token) {
+      console.log("회원 유저, 토큰", token);
 
-      router.push("mypage");
-    } else if (signup === "true" && token) {
-      console.log("회원가입이고, 토큰:", token);
+      const res = axios.get("http://localhost:5001/auth/cookie"); // 로그인이 완료되면 쿠키 조회
+    } else if (signup === "false" && provider) {
+      console.log("비회원 유저, provider", provider);
     }
-  }, [signup, userid, token]);
+  }, [signup, token, provider]);
 
   return (
     <div>
-      <h1>AuthSuccess</h1>
-      <p>사용자 ID: {userid}</p>
-      <p>토큰: {token}</p>
-      <p>회원가입 여부: {signup}</p>
+      <h1>로그인 처리중..</h1>
     </div>
   );
 };
 
-export default AuthSuccess;
+export default SocialLogin;

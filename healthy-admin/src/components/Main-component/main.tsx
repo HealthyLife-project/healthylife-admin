@@ -10,6 +10,7 @@ import { GoogleLogin } from "./login";
 import { Report } from "./component/report";
 import { AITEST } from "./component/ai";
 import { Payment } from "./component/payment";
+import { AiTest2 } from "./component/ai2";
 export const Admin = () => {
   const [selectMenu, setSelectMenu] = useState<string>("category");
 
@@ -26,6 +27,7 @@ export const Admin = () => {
       {selectMenu === "report" && <Report />}
       {selectMenu === "ai" && <AITEST />}
       {selectMenu === "payment" && <Payment />}
+      {selectMenu === "ai2" && <AiTest2 />}
     </MainWrap>
   );
 };
