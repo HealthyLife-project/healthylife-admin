@@ -34,9 +34,9 @@ export const MenuItem = styled.li`
 export const TableWrapper = styled.div`
   padding: 20px;
   display: flex;
-  justify-content: center;
-  flex-direction: column; // 추가
-  align-items: center; // 추가
+  /* justify-content: center; */
+  flex-direction: column;
+  align-items: center;
   width: 100%;
 `;
 
@@ -46,6 +46,7 @@ export const Table = styled.table`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   overflow: hidden;
+  min-height: 480px;
 `;
 
 export const Th = styled.th`

@@ -1,4 +1,4 @@
-import { TableWrapper, Table, Th, Td } from "../Main-style/mainstyled";
+import { TableWrapper, Table, Th, Td } from "../style/mainstyled";
 
 export const Report = () => {
   return (

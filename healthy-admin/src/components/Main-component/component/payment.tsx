@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import { loadTossPayments, ANONYMOUS } from "@tosspayments/tosspayments-sdk";
 import { nanoid } from "nanoid";
-import { PayStyle } from "../Main-style/styled";
+import { PayStyle } from "../style/styled";
 //Component
 //toss key
 const clientKey = process.env.NEXT_PUBLIC_TOSS_CLIENTKEY;

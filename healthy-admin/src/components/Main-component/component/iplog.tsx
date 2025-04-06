@@ -6,7 +6,7 @@ import {
   SortButton,
   PaginationWrapper,
   PageButton,
-} from "../Main-style/mainstyled";
+} from "../style/mainstyled";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
