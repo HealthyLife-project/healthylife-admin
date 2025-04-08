@@ -7,19 +7,20 @@ const socket: Socket = io("http://localhost:5001", {
 
 export const Chat = () => {
   const [username, setUsername] = useState("");
+  const [room, setRoom] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<
     { username: string; message: string }[]
   >([]);
   const [users, setUsers] = useState<string[]>([]);
+  const [joined, setJoined] = useState(false); // 실제 입장 여부
 
   useEffect(() => {
-    // 메시지 수신 이벤트
     socket.on("receiveMessage", (data) => {
+      console.log("받은메세지", data);
       setMessages((prev) => [...prev, data]);
     });
 
-    // 사용자 목록 업데이트 이벤트
     socket.on("userList", (userList) => {
       setUsers(userList);
     });
@@ -30,24 +31,23 @@ export const Chat = () => {
     };
   }, []);
 
-  // 메시지 전송
   const sendMessage = () => {
     if (message.trim()) {
-      socket.emit("sendMessage", { username, message });
+      socket.emit("sendMessage", { room, username, message });
       setMessage("");
     }
   };
 
-  // 사용자 등록
-  const registerUser = () => {
-    if (username.trim()) {
-      socket.emit("registerUser", username);
+  const joinRoom = () => {
+    if (username.trim() && room.trim()) {
+      socket.emit("joinRoom", { room });
+      setJoined(true); // 채팅방 생성
     }
   };
 
   return (
     <div>
-      {!username ? (
+      {!joined ? (
         <div>
           <input
             type="text"
@@ -55,10 +55,18 @@ export const Chat = () => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
-          <button onClick={registerUser}>입장</button>
+          <input
+            type="text"
+            placeholder="방 이름 입력"
+            value={room}
+            onChange={(e) => setRoom(e.target.value)}
+          />
+          <button onClick={joinRoom}>입장</button>
         </div>
       ) : (
         <div>
+          <h2>채팅방: {room}</h2>
+
           <div>
             <h3>접속 중인 사용자</h3>
             <ul>
@@ -67,9 +75,17 @@ export const Chat = () => {
               ))}
             </ul>
           </div>
+
           <div>
             <h3>채팅</h3>
-            <div>
+            <div
+              style={{
+                border: "1px solid #ccc",
+                padding: "10px",
+                height: "200px",
+                overflowY: "scroll",
+              }}
+            >
               {messages.map((msg, index) => (
                 <p key={index}>
                   <strong>{msg.username}: </strong> {msg.message}

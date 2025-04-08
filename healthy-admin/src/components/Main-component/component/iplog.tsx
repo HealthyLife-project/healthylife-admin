@@ -50,6 +50,7 @@ export const IpLog = () => {
 
     return pages;
   };
+
   return (
     <>
       <TableWrapper>
