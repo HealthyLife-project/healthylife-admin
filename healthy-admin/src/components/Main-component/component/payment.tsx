@@ -2,8 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import { loadTossPayments, ANONYMOUS } from "@tosspayments/tosspayments-sdk";
 import { nanoid } from "nanoid";
-import { PayStyle } from "../style/styled";
-//Component
+
 //toss key
 const clientKey = process.env.NEXT_PUBLIC_TOSS_CLIENTKEY;
 const customerKey = process.env.NEXT_PUBLIC_TOSS_CUSTOMERKEY;
@@ -88,7 +87,7 @@ export const Payment = () => {
     }
   }
   return (
-    <PayStyle>
+    <>
       <div id="payment-method"></div>
       {/* 이용약관 UI */}
       <div id="agreement"></div>
@@ -105,6 +104,6 @@ export const Payment = () => {
       >
         결제하기
       </button>
-    </PayStyle>
+    </>
   );
 };

@@ -38,7 +38,7 @@ const AdBanner = () => {
         }
       );
 
-      alert("업로드 성공: " + res.data.filename);
+      alert(`${res.data.message}${res.data.path}`);
     } catch (err) {
       console.error(err);
       alert("업로드 실패");
