@@ -11,6 +11,7 @@ import { Report } from "./component/report";
 import { AITEST } from "./component/ai";
 import { Payment } from "./component/payment";
 import { AiTest2 } from "./component/ai2";
+import KAKAOMap from "./component/maps";
 import AdBanner from "./component/add";
 export const Admin = () => {
   const [selectMenu, setSelectMenu] = useState<string>("category");
@@ -30,6 +31,7 @@ export const Admin = () => {
       {selectMenu === "ai" && <AITEST />}
       {selectMenu === "payment" && <Payment />}
       {selectMenu === "ai2" && <AiTest2 />}
+      {selectMenu === "Maps" && <KAKAOMap />}
     </MainWrap>
   );
 };

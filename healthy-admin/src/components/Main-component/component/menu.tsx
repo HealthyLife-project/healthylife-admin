@@ -20,6 +20,7 @@ export const AdminMenu: React.FC<AdminMenuProps> = ({ MenuClick }) => {
           <MenuItem onClick={() => MenuClick("ai")}>gemeni</MenuItem>
           <MenuItem onClick={() => MenuClick("payment")}>pay</MenuItem>
           <MenuItem onClick={() => MenuClick("ai2")}>image</MenuItem>
+          <MenuItem onClick={() => MenuClick("Maps")}>maps</MenuItem>
         </MenuList>
       </MainMenu>
     </MainWrap>
