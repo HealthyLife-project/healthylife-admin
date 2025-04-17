@@ -34,7 +34,7 @@ const AdBanner = () => {
           headers: {
             "Content-Type": "multipart/form-data",
           },
-          withCredentials: true, //headers 타입이 지정되어있으면 아마 추가를 해줘야 하는듯
+          withCredentials: true,
         }
       );
 

@@ -23,8 +23,8 @@ export const IpLog = () => {
       try {
         const res = await axios.get("http://localhost:5001/log", {
           params: {
-            page,
-            limit,
+            page, //1부터 시작
+            limit, //보여줄 채팅의 갯수
           },
         });
 
