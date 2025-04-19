@@ -14,6 +14,7 @@ import AdminLayout from "@/features/layouts/AdminLayout";
 import LoginForm from "@/features/login/login";
 import { getCookie } from "cookies-next";
 import SignUp from "@/features/signup/signup";
+import api from "@/util/source";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [notPc, setNotPc] = useState(false);
@@ -22,12 +23,10 @@ export default function App({ Component, pageProps }: AppProps) {
   const [signUp, setSignUp] = useState(false);
 
   useEffect(() => {
-    const token = getCookie("admin_token"); // 쿠키에서 "token" 값 가져오기
-    if (token) {
-      setOpener(true);
-    } else {
-      setOpener(false);
-    }
+    api.get("/admin/check").then((res) => {
+      if (res.data.login) setOpener(true);
+      else setOpener(false);
+    });
   }, [router]);
 
   useEffect(() => {
