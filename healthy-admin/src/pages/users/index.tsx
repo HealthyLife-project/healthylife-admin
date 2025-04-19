@@ -1,11 +1,5 @@
-import LoginForm from "@/features/login/login";
-
-const LoginPage = () => {
-  return (
-    <div>
-      <LoginForm />
-    </div>
-  );
+const MainPage = () => {
+  return <div></div>;
 };
 
-export default LoginPage;
+export default MainPage;

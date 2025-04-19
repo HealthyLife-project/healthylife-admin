@@ -13,11 +13,14 @@ import { RootState } from "@/redux/store";
 import AdminLayout from "@/features/layouts/AdminLayout";
 import LoginForm from "@/features/login/login";
 import { getCookie } from "cookies-next";
+import SignUp from "@/features/signup/signup";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [notPc, setNotPc] = useState(false);
   const router = useRouter();
   const [opener, setOpener] = useState(false);
+  const [signUp, setSignUp] = useState(false);
+
   useEffect(() => {
     const token = getCookie("admin_token"); // 쿠키에서 "token" 값 가져오기
     if (token) {
@@ -62,8 +65,10 @@ export default function App({ Component, pageProps }: AppProps) {
             <AdminLayout>
               <Component {...pageProps} />
             </AdminLayout>
+          ) : signUp ? (
+            <SignUp />
           ) : (
-            <LoginForm />
+            <LoginForm onSignUp={setSignUp} />
           )}
         </>
       )}

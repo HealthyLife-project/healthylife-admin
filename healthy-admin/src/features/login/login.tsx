@@ -15,7 +15,11 @@ import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "@/redux/authtoken";
 import { sign } from "crypto";
-const LoginForm = () => {
+const LoginForm = ({
+  onSignUp,
+}: {
+  onSignUp: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const dispatch = useDispatch();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -36,9 +40,6 @@ const LoginForm = () => {
     } else {
       alert("서버 에러");
     }
-  };
-  const signUpPage = () => {
-    router.push("/signup");
   };
   return (
     <LoginContainer>
@@ -63,7 +64,7 @@ const LoginForm = () => {
         </LoginInputWrap>
         {error && <LoginError>{error}</LoginError>}
         <LoginButton type="submit">Login</LoginButton>
-        <SignUpButton onClick={signUpPage}>회원가입</SignUpButton>
+        <SignUpButton onClick={() => onSignUp(true)}>회원가입</SignUpButton>
       </LoginFormWrapper>
     </LoginContainer>
   );
