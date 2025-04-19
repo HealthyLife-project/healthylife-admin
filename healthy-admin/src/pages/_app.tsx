@@ -5,11 +5,27 @@ import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { Provider } from "react-redux"; // Provider import
 import store from "@/redux/store"; // Redux store import
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import AdminLayout from "@/features/layouts/AdminLayout";
+import LoginForm from "@/features/login/login";
+import { getCookie } from "cookies-next";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [notPc, setNotPc] = useState(false);
+  const router = useRouter();
+  const [opener, setOpener] = useState(false);
+  useEffect(() => {
+    const token = getCookie("admin_token"); // 쿠키에서 "token" 값 가져오기
+    if (token) {
+      setOpener(true);
+    } else {
+      setOpener(false);
+    }
+  }, [router]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -42,7 +58,13 @@ export default function App({ Component, pageProps }: AppProps) {
       ) : (
         <>
           <HEAD />
-          <Component {...pageProps} />
+          {opener ? (
+            <AdminLayout>
+              <Component {...pageProps} />
+            </AdminLayout>
+          ) : (
+            <LoginForm />
+          )}
         </>
       )}
     </Provider>

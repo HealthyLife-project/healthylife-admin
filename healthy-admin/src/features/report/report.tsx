@@ -26,7 +26,7 @@ const Reports = () => {
         const response = await axios.get("http://localhost:5001/reports");
         setReports(response.data);
       } catch (error) {
-        console.error("신고 내역 불러오기 실패", error);
+        console.error("Failed to fetch reports", error);
       }
     };
     fetchReports();
@@ -39,11 +39,11 @@ const Reports = () => {
         <thead>
           <TableRow>
             <TableHeader>ID</TableHeader>
-            <TableHeader>신고 내용</TableHeader>
-            <TableHeader>신고 횟수</TableHeader>
-            <TableHeader>신고 시각</TableHeader>
-            <TableHeader>신고당한 사람</TableHeader>
-            <TableHeader>신고한 사람</TableHeader>
+            <TableHeader>Report Content</TableHeader>
+            <TableHeader>Report Count</TableHeader>
+            <TableHeader>Reported Time</TableHeader>
+            <TableHeader>Reported User</TableHeader>
+            <TableHeader>Reporting User</TableHeader>
           </TableRow>
         </thead>
         <tbody>

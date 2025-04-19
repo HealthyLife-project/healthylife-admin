@@ -1,13 +1,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import axios from "axios";
-import {
-  Wrapper,
-  UploadLabel,
-  HiddenInput,
-  PreviewWrapper,
-} from "@/components/Main-component/style/ad-styled";
-
+import { Wrapper, UploadLabel, HiddenInput, PreviewWrapper } from "./styled";
+import api from "@/util/source";
 const AdBanner = () => {
   const [preview, setPreview] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
@@ -27,16 +22,12 @@ const AdBanner = () => {
     formData.append("image", file);
 
     try {
-      const res = await axios.post(
-        "http://localhost:5001/ad/upload",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-          withCredentials: true,
-        }
-      );
+      const res = await api.post("/ad/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
+      });
 
       alert(`${res.data.message}${res.data.path}`);
     } catch (err) {

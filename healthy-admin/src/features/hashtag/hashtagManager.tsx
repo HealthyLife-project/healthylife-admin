@@ -1,3 +1,4 @@
+// HashtagManager.tsx
 import { useEffect, useState } from "react";
 import axios from "axios";
 import {
@@ -9,7 +10,8 @@ import {
   TableRow,
   TableCell,
   DelButton,
-} from "@/components/Main-component/style/styled";
+  BackButton,
+} from "./styled";
 
 interface CateOption {
   id: number;
@@ -73,13 +75,14 @@ const HashtagManager = ({ category, onBack }: HashtagManagerProps) => {
   };
 
   return (
-    <>
-      <h4>카테고리: {category.category}</h4>
-      <Button onClick={onBack}>뒤로 가기</Button>
+    <div>
+      <h4 style={{ marginBottom: "10px" }}>카테고리: {category.category}</h4>
+      <BackButton onClick={onBack}>뒤로 가기</BackButton>
 
       <FormContainer>
         <Row>
           <input
+            style={{ padding: "10px" }}
             type="text"
             value={hashtag}
             onChange={(e) => setHashtag(e.target.value)}
@@ -116,7 +119,7 @@ const HashtagManager = ({ category, onBack }: HashtagManagerProps) => {
           ))}
         </tbody>
       </Table>
-    </>
+    </div>
   );
 };
 

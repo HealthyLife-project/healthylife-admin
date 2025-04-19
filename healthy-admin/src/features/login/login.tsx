@@ -32,7 +32,7 @@ const LoginForm = () => {
     const res: any = await loginUser(username, password);
     if (res.result) {
       dispatch(loginSuccess(res.token));
-      router.push("/");
+      window.location.reload();
     } else {
       alert("서버 에러");
     }

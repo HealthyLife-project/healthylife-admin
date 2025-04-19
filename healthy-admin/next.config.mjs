@@ -21,6 +21,7 @@ const transpileModules = [
   "rc-picker",
   "rc-table",
   "rc-input",
+  "@rc-component/util",
 ];
 
 export default withTM(transpileModules)(nextConfig);

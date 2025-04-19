@@ -1,9 +1,9 @@
-import MainAdmin from "@/features/Main/Main";
-
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 export default function Home() {
-  return (
-    <>
-      <MainAdmin />
-    </>
-  );
+  const router = useRouter();
+
+  useEffect(() => {
+    router.push("/users/report");
+  }, []);
 }
