@@ -27,6 +27,7 @@ export default function App({ Component, pageProps }: AppProps) {
       if (res.data.login) setOpener(true);
       else setOpener(false);
     });
+    console.log(opener);
   }, [router]);
 
   useEffect(() => {

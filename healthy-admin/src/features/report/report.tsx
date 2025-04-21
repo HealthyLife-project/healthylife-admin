@@ -7,7 +7,7 @@ import {
   TableRow,
   TableCell,
 } from "@/components/Main-component/style/styled";
-
+import api from "@/util/source";
 interface Report {
   id: number;
   report: string;
@@ -23,7 +23,7 @@ const Reports = () => {
   useEffect(() => {
     const fetchReports = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/reports");
+        const response = await api.get("http://localhost:5001/report/get");
         setReports(response.data);
       } catch (error) {
         console.error("Failed to fetch reports", error);
