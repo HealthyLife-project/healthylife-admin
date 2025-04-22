@@ -1,12 +1,12 @@
 import React from "react";
-import Reports from "@/features/report/report";
+import ManageUsers from "@/features/manage-users/manage-users";
 
-const ReportPage = () => {
+const ManageUsersPage = () => {
   return (
     <div>
-      <Reports />
+      <ManageUsers />
     </div>
   );
 };
 
-export default ReportPage;
+export default ManageUsersPage;

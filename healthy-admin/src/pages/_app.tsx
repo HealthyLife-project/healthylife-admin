@@ -40,7 +40,7 @@ export default function App({ Component, pageProps }: AppProps) {
     };
 
     // 초기 width 확인
-    handleResize();
+    // handleResize();
 
     // resize 이벤트 리스너 추가
     window.addEventListener("resize", handleResize);
