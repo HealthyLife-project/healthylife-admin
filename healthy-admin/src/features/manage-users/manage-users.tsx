@@ -63,7 +63,7 @@ export default function ManageUsers() {
   const handleSave = async (id: number) => {
     try {
       console.log("edited user", editedUser);
-      await api.put(`/user/update/${id}`, editedUser);
+      await api.post(`/user/mypage/modify/${id}`, editedUser);
       setUserInfo((prev) =>
         prev.map((user) => (user.id === id ? { ...user, ...editedUser } : user))
       );
