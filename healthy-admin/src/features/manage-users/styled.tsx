@@ -6,6 +6,10 @@ export const Table = styled.table`
   border-collapse: collapse;
   min-width: 1000px; /* Ensures the table takes enough width for scrolling */
 
+  .actions {
+    text-align: center;
+  }
+
   th,
   td {
     padding: 12px;
@@ -39,4 +43,26 @@ export const TableWrapper = styled.div`
   width: 100%;
   overflow-x: auto;
   margin-top: 20px;
+`;
+
+// 공통적인 버튼 스타일
+export const Button = styled.button`
+  background-color: #d2e4f8;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  &:hover {
+    background-color: rgb(174, 201, 232);
+  }
+`;
+
+// 삭제 버튼 스타일
+export const DelButton = styled(Button)`
+  background-color: rgb(219, 210, 210);
+
+  &:hover {
+    background-color: rgb(156, 153, 153);
+  }
 `;

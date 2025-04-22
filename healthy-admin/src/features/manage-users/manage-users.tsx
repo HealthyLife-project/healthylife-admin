@@ -1,19 +1,20 @@
+import api from "@/util/source";
+import { useState, useEffect } from "react";
 import {
+  TableWrapper,
+  DelButton,
+  Button,
   Table,
   TableHeader,
   TableRow,
   TableCell,
-} from "@/components/Main-component/style/styled";
-import api from "@/util/source";
-import { useState, useEffect } from "react";
-import { TableWrapper } from "./styled";
+} from "./styled";
 
 interface UserInfo {
   id: number;
   userid: string;
   nickname: string;
   name: string;
-  password: string;
   age: string;
   gender: string;
   email: string;
@@ -82,72 +83,118 @@ export default function ManageUsers() {
     }
   };
 
+  const columnGroups = [
+    ["id", "userid", "nickname", "name"],
+    ["age", "gender", "email", "phone"],
+    ["address", "provider", "reportCnt", "premium", "admin"],
+  ];
+
+  const [currentColumnPage, setCurrentColumnPage] = useState(0);
+
+  const headersMap: { [key: string]: string } = {
+    id: "ID",
+    userid: "UserID",
+    nickname: "Nickname",
+    name: "Name",
+    age: "Age",
+    gender: "Gender",
+    email: "Email",
+    phone: "Phone Number",
+    address: "Address",
+    provider: "Provider",
+    reportCnt: "Number of Reports",
+    premium: "Premium Subscription",
+    admin: "Admin",
+  };
+
   return (
     <div>
-      <h1>고객 정보 관리표</h1>
+      <h1>유저 정보 관리표</h1>
       <TableWrapper>
         <Table>
           <thead>
             <TableRow>
-              <TableHeader>ID</TableHeader>
-              <TableHeader>UserID</TableHeader>
-              <TableHeader>Nickname</TableHeader>
-              <TableHeader>Name</TableHeader>
-              <TableHeader>Password</TableHeader>
-              <TableHeader>Age</TableHeader>
-              <TableHeader>Gender</TableHeader>
-              <TableHeader>Email</TableHeader>
-              <TableHeader>Phone Number</TableHeader>
-              <TableHeader>Address</TableHeader>
-              <TableHeader>Provider</TableHeader>
-              <TableHeader>Number of Reports</TableHeader>
-              <TableHeader>Premium Subscription</TableHeader>
-              <TableHeader>Admin</TableHeader>
-              <TableHeader>Actions</TableHeader>
+              {columnGroups[currentColumnPage].map((key) => (
+                <TableHeader key={key}>{headersMap[key]}</TableHeader>
+              ))}
+              <TableHeader className="actions">관리</TableHeader>
             </TableRow>
           </thead>
           <tbody>
             {userInfo.map((user) => (
               <TableRow key={user.id}>
-                {Object.entries(user).map(([key, value]) =>
-                  key === "id" || key === "provider" ? (
-                    <TableCell key={key}>{value}</TableCell>
-                  ) : (
-                    <TableCell key={key}>
-                      {editingUserId === user.id ? (
-                        <input
-                          type="text"
-                          value={(editedUser as any)[key] || ""}
-                          onChange={(e) =>
-                            handleChange(e, key as keyof UserInfo)
-                          }
-                        />
-                      ) : (
-                        (value as string)
-                      )}
-                    </TableCell>
-                  )
-                )}
+                {columnGroups[currentColumnPage].map((key) => (
+                  <TableCell key={key}>
+                    {editingUserId === user.id ? (
+                      <input
+                        type="text"
+                        value={(editedUser as any)[key] || ""}
+                        onChange={(e) => handleChange(e, key as keyof UserInfo)}
+                      />
+                    ) : (
+                      (user as any)[key]
+                    )}
+                  </TableCell>
+                ))}
                 <TableCell>
-                  {editingUserId === user.id ? (
-                    <>
-                      <button onClick={() => handleSave(user.id)}>Save</button>
-                      <button onClick={handleCancel}>Cancel</button>
-                    </>
-                  ) : (
-                    <>
-                      <button onClick={() => handleEdit(user)}>Edit</button>
-                      <button onClick={() => handleDelete(user.id)}>
-                        Delete
-                      </button>
-                    </>
-                  )}
+                  <div
+                    className="actionsButtons"
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-evenly",
+                    }}
+                  >
+                    {editingUserId === user.id ? (
+                      <>
+                        <Button onClick={() => handleSave(user.id)}>
+                          저장
+                        </Button>
+                        <Button onClick={handleCancel}>취소</Button>
+                      </>
+                    ) : (
+                      <>
+                        <Button onClick={() => handleEdit(user)}>수정</Button>
+                        <DelButton onClick={() => handleDelete(user.id)}>
+                          제거
+                        </DelButton>
+                      </>
+                    )}
+                  </div>
                 </TableCell>
               </TableRow>
             ))}
           </tbody>
         </Table>
       </TableWrapper>
+
+      <div
+        style={{
+          marginTop: "1rem",
+          textAlign: "center",
+        }}
+      >
+        <Button
+          onClick={() => setCurrentColumnPage((prev) => Math.max(prev - 1, 0))}
+          disabled={currentColumnPage === 0}
+          style={{ marginRight: "1rem" }}
+        >
+          ◀ 이전
+        </Button>
+        <span>
+          페이지 {currentColumnPage + 1} / {columnGroups.length}
+        </span>
+        <Button
+          onClick={() =>
+            setCurrentColumnPage((prev) =>
+              Math.min(prev + 1, columnGroups.length - 1)
+            )
+          }
+          disabled={currentColumnPage === columnGroups.length - 1}
+          style={{ marginLeft: "1rem" }}
+        >
+          다음 ▶
+        </Button>
+      </div>
     </div>
   );
 }
