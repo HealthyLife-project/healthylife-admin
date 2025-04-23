@@ -13,8 +13,8 @@ interface Report {
   report: string;
   reportCnt: number;
   timestamp: string;
-  user: { username: string };
-  reporter: { username: string };
+  user: { name: string };
+  reporter: { name: string };
 }
 
 const Reports = () => {
@@ -23,8 +23,9 @@ const Reports = () => {
   useEffect(() => {
     const fetchReports = async () => {
       try {
-        const response = await api.get("http://localhost:5001/report/get");
-        setReports(response.data);
+        const res = await api.get("/report/get");
+        setReports(res.data);
+        console.log(res.data);
       } catch (error) {
         console.error("Failed to fetch reports", error);
       }
@@ -55,8 +56,8 @@ const Reports = () => {
               <TableCell>
                 {new Date(report.timestamp).toLocaleString()}
               </TableCell>
-              <TableCell>{report.user.username}</TableCell>
-              <TableCell>{report.reporter.username}</TableCell>
+              <TableCell>{report.user.name}</TableCell>
+              <TableCell>{report.reporter.name}</TableCell>
             </TableRow>
           ))}
         </tbody>
