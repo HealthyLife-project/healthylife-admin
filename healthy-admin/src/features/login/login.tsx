@@ -36,7 +36,7 @@ const LoginForm = ({
     const res: any = await loginUser(username, password);
     if (res.result) {
       dispatch(loginSuccess(res.token));
-      // window.location.reload();
+      window.location.reload();
     } else {
       alert("서버 에러");
     }

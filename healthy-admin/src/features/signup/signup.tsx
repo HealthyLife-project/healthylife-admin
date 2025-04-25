@@ -35,7 +35,9 @@ const SignUp = () => {
     api
       .post("admin/signup", obj)
       .then((res) => {
-        res.data.result ? router.push("/") : console.log(res, "회원가입 error");
+        res.data.result
+          ? window.location.reload()
+          : console.log(res, "회원가입 error");
       })
       .catch((e) => {
         console.error(e);
